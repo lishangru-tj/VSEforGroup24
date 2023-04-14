@@ -28,7 +28,7 @@
   <h2>四、实验步骤 </h2>
   <p>1.确定特征节点：根据项目的目标和需求，选择适合的属性作为决策树的节点。这需要对项目数据进行特征选择，选择那些对于预测项目风险具有重要影响的属性作为决策树的划分属性。</p>
   <p>2.决策树的构建：采用自顶向下的递归划分方法，根据选定的划分准则，选择最佳的属性作为节点进行划分，直到生成叶节点。可以使用常见的决策树算法，如ID3、C4.5、CART等进行决策树的构建。请将构建的二叉树的信息填入以下表格。</p>
-  <table border="1" class="custom-table">
+  <table border="1" class="custom-table" style="margin-bottom:10px;">
     <thead>
       <tr>
         <th>索引</th>
@@ -57,6 +57,9 @@
       </tr>
     </tbody>
   </table>
+  <span style="float: right;">确认无误后，点击导出按钮导出图像<button class="clear-btn" @click="clearInputs" style="margin-left: 10px;margin-right: 10px;">清空表格</button><button
+      style="padding-right: 10px;padding-left: 10px;">导出</button></span>
+  <br />
   <br />
   <p>3.风险评估：在以下区域填入分析结果：</p>
   <textarea style="width:100%;height:100px;padding:10px" v-model="analysis" />
@@ -69,8 +72,12 @@
     <button style="margin-left:10px" @click="deleteInput(index)">删除</button>
     <button style="margin-left:10px" @click="addInput">另起一段</button>
   </div>
-
+  <br />
   <hr />
+  <span style="  display: flex;
+  justify-content: center;
+  align-items: center;">您已完成实验！点击提交按钮，提交实验报告！
+    <button style="padding-right: 10px;padding-left: 10px;">提交</button></span>
 </template>
   
   <script lang="ts">
@@ -93,6 +100,17 @@ export default {
     };
   },
   methods: {
+    clearInputs() {
+      // 清空表格内容
+      this.nodes.forEach((node) => {
+        node.parent = '';
+        node.child = '';
+        node.attribute = '';
+        node.divider = '';
+        node.riskType = '';
+        node.data = '';
+      });
+    },
     updateNodeData(node, field, value) {
       // 更新节点数据
       node[field] = value;
